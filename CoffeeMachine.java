@@ -12,30 +12,37 @@ public class CoffeeMachine {
 
     public static void main(String[] args) {
 
-        printStatus();
-
         scanner = new Scanner(System.in);
-        String action = scanner.nextLine();
-        switch (action) {
-            case "buy":
-                buyCoffee();
-                break;
-            case "fill":
-                fill();
-                break;
-            case "take":
-                take();
-                break;
-            default:
-                break;
-        }
+        boolean finished = false;
 
-        printStatus();
+        do {
+            System.out.println("Write action (buy, fill, take, remaining, exit):");
+            String action = scanner.nextLine();
+
+            switch (action) {
+                case "buy":
+                    buyCoffee();
+                    break;
+                case "fill":
+                    fill();
+                    break;
+                case "take":
+                    take();
+                    break;
+                case "remaining":
+                    remaining();
+                    break;
+                case "exit":
+                    finished = true;
+                default:
+                    break;
+            }
+        } while(!finished);
 
         scanner.close();
     }
 
-    public static void printStatus() {
+    public static void remaining() {
         System.out.printf("The coffee machine has:\n" +
                 "%d ml of water\n" +
                 "%d ml of milk\n" +
@@ -46,19 +53,21 @@ public class CoffeeMachine {
     }
 
     public static void buyCoffee() {
-        System.out.println("What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino:");
-        int option = scanner.nextInt();
+        System.out.println("What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino, back - to main menu:");
+        String option = scanner.nextLine();
 
         switch (option) {
-            case 1:
+            case "1":
                 buyEspresso();
                 break;
-            case 2:
+            case "2":
                 buyLatte();
                 break;
-            case 3:
+            case "3":
                 buyCappuccino();
                 break;
+            case "back":
+                return;
             default:
                 break;
 
@@ -92,6 +101,18 @@ public class CoffeeMachine {
         int espressoCoffeeBeans = 16;
         int espressoPrice = 4;
 
+        if (espressoWater > water) {
+            System.out.println("Sorry, not enough water!");
+            return;
+        }
+
+        if (espressoCoffeeBeans > coffeeBeans) {
+            System.out.println("Sorry, not enough coffee beans!");
+            return;
+        }
+
+        System.out.println("I have enough resources, making you a coffee!");
+
         water -= espressoWater;
         coffeeBeans -= espressoCoffeeBeans;
         disposableCups--;
@@ -103,6 +124,23 @@ public class CoffeeMachine {
         int latteMilk = 75;
         int latteCoffeeBeans = 20;
         int lattePrice = 7;
+
+        if (latteWater > water) {
+            System.out.println("Sorry, not enough water!");
+            return;
+        }
+
+        if (latteMilk > milk) {
+            System.out.println("Sorry, not enough milk!");
+            return;
+        }
+
+        if (latteCoffeeBeans > coffeeBeans) {
+            System.out.println("Sorry, not enough coffee beans!");
+            return;
+        }
+
+        System.out.println("I have enough resources, making you a coffee!");
 
         water -= latteWater;
         milk -= latteMilk;
@@ -116,6 +154,23 @@ public class CoffeeMachine {
         int cappuccinoMilk = 100;
         int cappuccinoCoffeeBeans = 12;
         int cappuccinoPrice = 6;
+
+        if (cappuccinoWater > water) {
+            System.out.println("Sorry, not enough water!");
+            return;
+        }
+
+        if (cappuccinoMilk > milk) {
+            System.out.println("Sorry, not enough milk!");
+            return;
+        }
+
+        if (cappuccinoCoffeeBeans > coffeeBeans) {
+            System.out.println("Sorry, not enough coffee beans!");
+            return;
+        }
+
+        System.out.println("I have enough resources, making you a coffee!");
 
         water -= cappuccinoWater;
         milk -= cappuccinoMilk;
