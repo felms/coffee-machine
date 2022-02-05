@@ -8,14 +8,35 @@ public class CoffeeMachine {
         int milk = 50;
         int coffeeBeans = 15;
 
+        System.out.println("Write how many ml of water the coffee machine has:");
+        int totalWater = scanner.nextInt();
+
+        System.out.println("Write how many ml of milk the coffee machine has:");
+        int totalMilk = scanner.nextInt();
+
+        System.out.println("Write how many grams of coffee beans the coffee machine has:");
+        int totalCoffeeBeans = scanner.nextInt();
+
+        int w = totalWater / water;
+        int m = totalMilk / milk;
+        int c = totalCoffeeBeans / coffeeBeans;
+
+        int totalCups = Math.min(w, m);
+        totalCups = Math.min(totalCups, c);
+
+
         System.out.println("Write how many cups of coffee you will need:");
         int cups = scanner.nextInt();
 
-        System.out.printf("For %d cups of coffee you will need:\n" +
-                "%d ml of water\n" +
-                "%d ml of milk\n" +
-                "%d g of coffee beans",
-                cups, (cups * water), (cups * milk), (cups * coffeeBeans));
+        if (cups == totalCups) {
+            System.out.println("Yes, I can make that amount of coffee");
+        } else if(cups < totalCups) {
+            System.out.printf("Yes, I can make that amount of coffee " +
+                    "(and even %d more than that)",
+                    (totalCups - cups));
+        } else {
+            System.out.printf("No, I can make only %d cup(s) of coffee", totalCups);
+        }
 
         scanner.close();
 
